@@ -8,7 +8,7 @@ Serves package testing purposes only... obviously.
 
 ## Usage
 
-When migrating from a package to another, it may be useful to know that composer schema (i.e. `composer.json`) may contain `replace` and `conflict` properties.
+When migrating from a package to another, it may be useful to know that composer schema (i.e. `composer.json`) may contain `replace` property.
 
 The schema of this package is (abridged):
 ```json
@@ -17,19 +17,17 @@ The schema of this package is (abridged):
   "require": {
     "php": "^8"
   },
-  "conflict": {
-    "foobar/foobar7": "*"
-  },
   "replace": {
     "foobar/foobar7": "*"
   }
 }
 ```
-Where
-- `conflict`:
-  - Ensures that the `foobar/foobar8` package conflicts with any version of `foobar/foobar7`, preventing both from being installed together.
-- `replace`:
-  - Indicates that `foobar/foobar8` completely replaces `foobar/foobar7`, allowing Composer to consider `foobar/foobar8` as a drop-in replacement for `foobar/foobar7`.
+Where `replace` indicates that `foobar/foobar8` completely replaces `foobar/foobar7`,
+allowing Composer to consider `foobar/foobar8` as a drop-in replacement for `foobar/foobar7`.
+
+Prop `replace` creates an implicit `conflict` rule, and is also more useful than `provide`, which serves different purpose (to implement virtual interfaces).
+
+Read the Composer shcema docs here: [Composer `replace`](https://getcomposer.org/doc/04-schema.md#replace).
 
 So, after having installed `foobar/foobar7` on a project with PHP 7,  
 then switching to PHP 8 and running `composer update`,  
