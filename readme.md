@@ -27,11 +27,33 @@ allowing Composer to consider `foobar/foobar8` as a drop-in replacement for `foo
 
 Prop `replace` creates an implicit `conflict` rule, and is also more useful than `provide`, which serves different purpose (to implement virtual interfaces).
 
-Read the Composer shcema docs here: [Composer `replace`](https://getcomposer.org/doc/04-schema.md#replace).
+Read the Composer schema docs here: [Composer `replace`](https://getcomposer.org/doc/04-schema.md#replace).
 
-So, after having installed `foobar/foobar7` on a project with PHP 7,  
-then switching to PHP 8 and running `composer update`,  
-one should see the package switched to `foobar/foobar8`.
+
+## Migration
+
+Prerequisites (or current state):
+- project running on PHP 7
+- `foobar/foobar7` installed (i.e. required by the project)
+
+Migration:
+1. switch to PHP 8
+2. `composer require foobar/foobar8`
+3. (optional) remove `foobar/foobar7` requirement
+
+This will satisfy all the other libraries that depend on `foobar/foobar7`, too, not just the project itself.
+
+One should end up with something like this:
+```json
+{
+  "type": "project",
+  "require": {
+    "php": "^8",
+    "foobar/foobar7": "^1",
+    "foobar/foobar8": "^1"
+  }
+}
+```
 
 Useful when reimplementing older libraries or providing backport versions for older architectures.
 
@@ -39,3 +61,5 @@ It may be useful in other scenarios too, when reimplementing third party librari
 An example would be a library that is slow to be maintained, but a serious flaw is found.
 One may source and distribute the patch himself and only replace a certain version.
 Once the third party package is updated, it will be used again, without need for changes to the consuming project.
+
+> Note that the replacing works not only across PHP versions. One may replace any package, or even selected versions of a package.
