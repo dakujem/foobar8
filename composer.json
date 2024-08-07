@@ -1,0 +1,21 @@
+{
+  "name": "foobar/foobar8",
+  "description": "foo bar for PHP 8* only",
+  "license": "Unlicense",
+  "authors": [
+    {
+      "name": "Andrej Rypák",
+      "email": "xrypak@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^8",
+    "foobar/foobar": "*"
+  },
+  "conflict": {
+    "foobar/foobar7": "*"
+  },
+  "replace": {
+    "foobar/foobar7": "*"
+  }
+}
