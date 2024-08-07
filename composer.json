@@ -12,9 +12,6 @@
     "php": "^8",
     "foobar/foobar": "*"
   },
-  "conflict": {
-    "foobar/foobar7": "*"
-  },
   "replace": {
     "foobar/foobar7": "*"
   }
